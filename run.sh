@@ -2,6 +2,14 @@
 set +e
 set -o noglob
 
+
+type_exists() {
+  if [ $(type -P $1) ]; then
+    return 0
+  fi
+  return 1
+}
+
 #
 # Headers and Logging
 #
