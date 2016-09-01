@@ -13,6 +13,11 @@ warn() { printf "➜ %s\n" "$@"
 success() { printf "✔ %s\n" "$@"
 }
 
+# Check jq is installed
+if ! type_exists 'jq'; then
+  sudo curl -o /usr/local/bin/jq http://stedolan.github.io/jq/download/linux64/jq && sudo chmod +x /usr/local/bin/jq
+fi
+
 # Check variables
 if [ -z "$WERCKER_QUAY_ADDTAG_TOKEN" ]; then
   error "Please set the 'token' variable"
