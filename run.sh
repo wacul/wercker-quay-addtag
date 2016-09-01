@@ -23,7 +23,7 @@ success() { printf "✔ %s\n" "$@"
 
 # Check jq is installed
 if ! type_exists 'jq'; then
-  sudo curl -o /usr/local/bin/jq http://stedolan.github.io/jq/download/linux64/jq && sudo chmod +x /usr/local/bin/jq
+  sudo curl -s -o /usr/local/bin/jq http://stedolan.github.io/jq/download/linux64/jq && sudo chmod +x /usr/local/bin/jq
 fi
 
 # Check variables
@@ -44,6 +44,12 @@ if [ -z "$WERCKER_QUAY_ADDTAG_ADD_TAG" ]; then
   exit 1
 fi
 
+
+info "source tag: ${WERCKER_QUAY_ADDTAG_SOURCE_TAG}"
+
+IMAGE_INFO=$(curl -H "authorization: Bearer ${WERCKER_QUAY_ADDTAG_TOKEN}" "https://quay.io/api/v1/repository/${WERCKER_QUAY_ADDTAG_REPOSITORY}/tag/${WERCKER_QUAY_ADDTAG_SOURCE_TAG}/images)
+
+info "info: ${IMAGE_INFO}"
 
 IMAGE_ID=$(curl -f -s -H "authorization: Bearer ${WERCKER_QUAY_ADDTAG_TOKEN}" "https://quay.io/api/v1/repository/${WERCKER_QUAY_ADDTAG_REPOSITORY}/tag/${WERCKER_QUAY_ADDTAG_SOURCE_TAG}/images"|jq .images[0].id)
 
