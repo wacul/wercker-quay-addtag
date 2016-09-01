@@ -44,12 +44,9 @@ if [ -z "$WERCKER_QUAY_ADDTAG_ADD_TAG" ]; then
   exit 1
 fi
 
+export WERCKER_QUAY_ADDTAG_REPOSITORY=$(echo ${WERCKER_QUAY_ADDTAG_REPOSITORY} | sed "s/^quay\.io\///g")
 
-info "source tag: ${WERCKER_QUAY_ADDTAG_SOURCE_TAG}"
-
-IMAGE_INFO=$(curl -H "authorization: Bearer ${WERCKER_QUAY_ADDTAG_TOKEN}" "https://quay.io/api/v1/repository/${WERCKER_QUAY_ADDTAG_REPOSITORY}/tag/${WERCKER_QUAY_ADDTAG_SOURCE_TAG}/images)
-
-info "info: ${IMAGE_INFO}"
+success "source tag: ${WERCKER_QUAY_ADDTAG_SOURCE_TAG}"
 
 IMAGE_ID=$(curl -f -s -H "authorization: Bearer ${WERCKER_QUAY_ADDTAG_TOKEN}" "https://quay.io/api/v1/repository/${WERCKER_QUAY_ADDTAG_REPOSITORY}/tag/${WERCKER_QUAY_ADDTAG_SOURCE_TAG}/images"|jq .images[0].id)
 

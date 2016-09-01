@@ -1,5 +1,5 @@
 name: quay-addtag
-version: 0.2.3
+version: 0.2.4
 description: add tag to quay
 keywords:
   - quay
