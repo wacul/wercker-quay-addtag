@@ -1,5 +1,5 @@
 name: quay-addtag
-version: 0.1.0
+version: 0.2.0
 description: add tag to quay
 keywords:
   - quay
@@ -7,7 +7,7 @@ properties:
   token:
     type: string
     required: true
-  quay_repository:
+  repository:
     type: string
     required: true
   source_tag:
